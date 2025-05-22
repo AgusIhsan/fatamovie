@@ -116,20 +116,13 @@ onAuthStateChanged(auth, (user) => {
             </button>
           </div>
         </form>
-        <!-- <button
-          @click="loginWithGoogle"
-          class="flex gap-1 hover:bg-[#3946D1] font-semibold text-md bg-[--primary] transform transition duration-300 hover:scale-105 rounded-md px-8 py-3"
-        >
-          <img src="../assets/img/ic-play.svg" alt="" />
-          Login
-        </button> -->
         <div v-if="isAuthReady" class="buatLogin">
           <button
             v-if="!store.user"
             @click="loginWithGoogle"
             class="flex gap-1 hover:bg-[#3946D1] font-semibold text-md bg-[--primary] transform transition duration-300 hover:scale-105 rounded-md px-8 py-3"
           >
-            Login
+            Login Dulu Cuiy
           </button>
 
           <div v-else>
