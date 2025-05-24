@@ -7,7 +7,7 @@ const movies = ref([
   { title: 'Film 2', desc: 'Deskripsi 2', img: imgHero },
   { title: 'Film 3', desc: 'Deskripsi 3', img: imgHero },
   { title: 'Film 4', desc: 'Deskripsi 4', img: imgHero },
-  { title: 'Film 5', desc: 'Deskripsi 5', img: imgHero },
+  { title: 'Film 5', desc: 'Deskri psi 5', img: imgHero },
   { title: 'Film 6', desc: 'Deskripsi 6', img: imgHero },
   { title: 'Film 7', desc: 'Deskripsi 7', img: imgHero },
   { title: 'Film 8', desc: 'Deskripsi 8', img: imgHero },

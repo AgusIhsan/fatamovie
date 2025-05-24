@@ -1,6 +1,7 @@
 <script setup>
 import Popular from '@/components/Popular.vue'
 import Trending from '@/components/Trending.vue'
+import TopRated from '@/components/TopRate.vue'
 </script>
 <template>
   <div
@@ -12,6 +13,7 @@ import Trending from '@/components/Trending.vue'
       Movies
     </h1>
     <Popular />
-    <Trending />
+    <!-- <Trending /> -->
+    <TopRated />
   </div>
 </template>
