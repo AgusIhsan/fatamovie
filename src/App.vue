@@ -122,7 +122,7 @@ onAuthStateChanged(auth, (user) => {
             @click="loginWithGoogle"
             class="flex gap-1 hover:bg-[#3946D1] font-semibold text-md bg-[--primary] transform transition duration-300 hover:scale-105 rounded-md px-8 py-3"
           >
-            Login
+            Login Cuiy
           </button>
 
           <div v-else>
