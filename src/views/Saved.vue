@@ -2,7 +2,9 @@
 import { onMounted, ref, watch } from 'vue'
 import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore'
 import { store } from '../store'
+import { useToast } from 'vue-toastification'
 
+const toast = useToast()
 const savedMovies = ref([])
 const loading = ref(true)
 const db = getFirestore()
@@ -21,7 +23,7 @@ const fetchSavedMovies = async () => {
 }
 
 const unsaveMovie = async (movieId) => {
-  const konfirmasi = confirm('Apakah kamu yakin ingin logout?')
+  const konfirmasi = confirm('Apakah kamu yakin ingin menghapus darri favorite?')
   if (!konfirmasi) return
   if (!store.user) return
   try {
@@ -30,10 +32,9 @@ const unsaveMovie = async (movieId) => {
 
     // Hapus juga dari state lokal
     savedMovies.value = savedMovies.value.filter((movie) => movie.id !== movieId)
-    alert('Film berhasil dihapus.')
+    toast.success('Film berhasil dihapus.')
   } catch (err) {
-    alert('Gagal menyimpan film.')
-    console.log('gagal hapus film:', err)
+    toast.error('Gagal menyimpan film.')
   }
 }
 

@@ -3,15 +3,16 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { getDoc, getFirestore } from 'firebase/firestore'
 import { doc, setDoc } from 'firebase/firestore'
 import { store } from '../store'
-const db = getFirestore()
 import Popular from '@/components/Popular.vue'
 import Trending from '@/components/Trending.vue'
+import TopRated from '@/components/TopRate.vue'
+import { useToast } from 'vue-toastification'
 
+const db = getFirestore()
+const toast = useToast()
 const movies = ref([])
 const currentIndex = ref(0)
 let intervalId
-const alertMessage = ref('')
-const alertType = ref('')
 
 onMounted(async () => {
   const res = await fetch('https://api.themoviedb.org/3/movie/popular', {
@@ -50,20 +51,21 @@ const prevMovie = () => {
 
 const saveMovie = async (movie) => {
   if (!store.user) {
-    alert('Login terlebih dahulu')
+    toast.error('Login terlebih dahulu')
     return
   }
   try {
     const userMovieRef = doc(db, `users/${store.user.uid}/savedMovies/${movie.id}`)
     const existingDoc = await getDoc(userMovieRef)
     if (existingDoc.exists()) {
-      alert('Film telah ditambahkan sebelumnya.')
+      toast.error('Film telah ditambahkan sebelumnya.')
+
       return
     }
     await setDoc(userMovieRef, movie)
-    alert('Berhasil ditambahkan ke Favorite')
+    toast.success('Berhasil ditambahkan ke Favorite')
   } catch (err) {
-    alert('Gagal ditambahkan', err)
+    toast.error(('Gagal ditambahkan', err))
   }
 }
 </script>
@@ -126,7 +128,7 @@ const saveMovie = async (movie) => {
       >
         Movies
       </h1>
-      <Popular />
+      <TopRated />
       <Trending />
     </div>
   </main>

@@ -1,8 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import DetailTopRate from './DetailTopRate.vue'
 
+const selectedMovie = ref(null)
 const TopRateMovies = ref([])
 const showAll = ref(false)
+const toastMessage = ref('')
+const showToast = ref(false)
 
 onMounted(async () => {
   const res = await fetch('https://api.themoviedb.org/3/movie/top_rated', {
@@ -30,11 +34,20 @@ const formatNumber = (num) => {
   if (absNum >= 1_000) return Math.round(absNum / 1_000) + 'k'
   return absNum.toString()
 }
-console.log(formatNumber(34646)) // → 35k
-console.log(formatNumber(31681.4)) // → 32k
-console.log(formatNumber(100000)) // → 100k
-console.log(formatNumber(999)) // → 999
-console.log(formatNumber(100.0)) // → 100
+
+const openModal = (movie) => {
+  selectedMovie.value = movie
+}
+const closeModal = () => {
+  selectedMovie.value = null
+}
+const triggerToast = (message) => {
+  toastMessage.value = message
+  showToast.value = true
+  setTimeout(() => {
+    showToast.value = false
+  }, 3000) // hilang dalam 3 detik
+}
 </script>
 
 <template>
@@ -45,7 +58,8 @@ console.log(formatNumber(100.0)) // → 100
       <div
         v-for="movie in displayedMovies"
         :key="movie.id"
-        class="relative bg-gray-800 text-white p-4 rounded"
+        class="relative bg-white bg-opacity-5 text-white p-4 rounded hover:border hover:border-white hover:border-opacity-20 hover:cursor-pointer"
+        @click="openModal(movie)"
       >
         <img
           v-if="movie.backdrop_path"
@@ -54,11 +68,15 @@ console.log(formatNumber(100.0)) // → 100
           class="mb-2 w-full rounded"
         />
         <div class="flex justify-between">
-          <div class="views flex items-center gap-1">
+          <div
+            class="views flex items-center gap-1 bg-black bg-opacity-30 px-3 py-1 rounded-full border border-white border-opacity-20"
+          >
             <img src="../assets/img/ic-eye.svg" class="w-4" alt="" />
             <p class="text-sm">{{ formatNumber(movie.vote_count) }}</p>
           </div>
-          <div class="rating">
+          <div
+            class="rating bg-black bg-opacity-30 px-3 py-1 rounded-full border border-white border-opacity-20"
+          >
             <span class="text-yellow-400">{{ getStars(movie.vote_average) }}</span>
             <span class="text-gray-400">
               ({{ movie.vote_average ? movie.vote_average.toFixed(1) : 'N/A' }})
@@ -73,6 +91,14 @@ console.log(formatNumber(100.0)) // → 100
         {{ showAll ? 'Tampilkan Lebih Sedikit' : 'Lihat Semua' }}
       </button>
     </div>
+  </div>
+
+  <DetailTopRate :movie="selectedMovie" @close="closeModal" @toast="triggerToast" />
+  <div
+    v-if="showToast"
+    class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow z-50 transition-all"
+  >
+    {{ toastMessage }}
   </div>
 </template>
 
