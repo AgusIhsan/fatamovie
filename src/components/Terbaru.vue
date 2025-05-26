@@ -39,12 +39,6 @@ const formatNumber = (num) => {
   return absNum.toString()
 }
 
-const openModal = (movie) => {
-  selectedMovie.value = movie
-}
-const closeModal = () => {
-  selectedMovie.value = null
-}
 const triggerToast = (message) => {
   toastMessage.value = message
   showToast.value = true

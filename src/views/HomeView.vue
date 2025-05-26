@@ -112,8 +112,7 @@ const saveMovie = async (movie) => {
             </button>
 
             <button
-              @click="movies[currentIndex] && openTrailer(movies[currentIndex].id)"
-              :disabled="!movies[currentIndex]"
+              @click="() => saveMovie(movies[currentIndex])"
               class="flex gap-1 items-center text-md bg-[--black] transition hover:scale-105 hover:bg-black rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
               <img src="../assets/img/ic-fav.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
