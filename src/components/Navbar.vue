@@ -182,14 +182,14 @@ const goToDetail = (movieId) => {
         <button
           v-if="!store.user"
           @click="loginWithGoogle"
-          class="flex gap-1 items-center justify-center hover:bg-[#3946D1] font-semibold bg-[--primary] transition hover:scale-105 rounded-md px-6 py-3 text-sm"
+          class="text-[--primary] font-semibold transition hover:scale-105 px-2 text-sm"
         >
           Login
         </button>
         <button
           v-else
           @click="logout"
-          class="flex gap-1 items-center justify-center hover:bg-red-600 font-semibold bg-red-500 transition hover:scale-105 rounded-md px-6 py-3 text-sm"
+          class="text-red-600 font-semibold transition hover:scale-105 px-2 text-sm"
         >
           Logout
         </button>

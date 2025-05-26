@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'SearchPage',
       component: () => import('@/views/SearchPage.vue'),
     },
+    {
+      path: '/genre/:idAndSlug',
+      name: 'GenreList',
+      component: () => import('@/views/GenreList.vue'),
+    },
   ],
 })
 

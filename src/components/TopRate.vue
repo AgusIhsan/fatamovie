@@ -38,19 +38,12 @@ const formatNumber = (num) => {
   if (absNum >= 1_000) return Math.round(absNum / 1_000) + 'k'
   return absNum.toString()
 }
-
-const openModal = (movie) => {
-  selectedMovie.value = movie
-}
-const closeModal = () => {
-  selectedMovie.value = null
-}
 const triggerToast = (message) => {
   toastMessage.value = message
   showToast.value = true
   setTimeout(() => {
     showToast.value = false
-  }, 3000) // hilang dalam 3 detik
+  }, 2000)
 }
 </script>
 

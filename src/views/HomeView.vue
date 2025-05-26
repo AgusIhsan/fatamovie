@@ -4,7 +4,7 @@ import { getDoc, getFirestore } from 'firebase/firestore'
 import { doc, setDoc } from 'firebase/firestore'
 import { store } from '../store'
 import Terbaru from '@/components/Terbaru.vue'
-import Trending from '@/components/Trending.vue'
+import Genre from '@/components/Genre.vue'
 import TopRated from '@/components/TopRate.vue'
 import { useToast } from 'vue-toastification'
 import ModalTrailer from '@/components/ModalTrailer.vue'
@@ -105,7 +105,7 @@ const saveMovie = async (movie) => {
             <button
               v-if="currentMovie"
               @click="openTrailer(currentMovie.id)"
-              class="flex gap-1 items-center text-md bg-white bg-opacity-10 backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-6 py-2 sm:px-8 sm:py-3"
+              class="flex gap-1 items-center text-md bg-[--primary] backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
               <img src="../assets/img/ic-play.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
               Play
@@ -148,6 +148,7 @@ const saveMovie = async (movie) => {
       >
         Movies
       </h1>
+      <Genre />
       <Terbaru />
       <TopRated />
 
