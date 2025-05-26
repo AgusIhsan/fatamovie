@@ -3,17 +3,19 @@ import Popular from '@/components/Popular.vue'
 import Trending from '@/components/Trending.vue'
 import TopRated from '@/components/TopRate.vue'
 </script>
+
 <template>
   <div
-    class="relative flex flex-col gap-16 container-list border border-white border-opacity-10 rounded-md py-16 px-8 mt-20"
+    class="relative flex flex-col gap-12 sm:gap-16 border border-white border-opacity-10 rounded-md mt-8 mx-4 sm:px-8 py-10 px-1 lg:mx-48 lg:px-8 my-12 sm:py-16"
   >
     <h1
-      class="absolute -top-4 left-10 text-xl bg-white bg-opacity-10 backdrop-blur-sm py-1 px-4 rounded-sm"
+      class="absolute -top-4 left-4 sm:left-8 text-lg sm:text-xl bg-white bg-opacity-10 backdrop-blur-sm py-1 px-3 sm:px-4 rounded-sm"
     >
       Movies
     </h1>
-    <Popular />
     <!-- <Trending /> -->
     <TopRated />
+    <!-- Section Movie Lists -->
+    <Popular />
   </div>
 </template>

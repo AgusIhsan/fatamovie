@@ -51,31 +51,41 @@ const triggerToast = (message) => {
 </script>
 
 <template>
-  <div>
-    <h1 class="text-white text-2xl font-bold mb-6">Top Rated</h1>
+  <div class="px-4 sm:px-8 lg:px-0">
+    <h1 class="text-white text-2xl font-bold mb-4">Top Rated</h1>
 
-    <transition-group name="fade-expand" tag="div" class="grid grid-cols-4 gap-4">
+    <transition-group
+      name="fade-expand"
+      tag="div"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+    >
       <div
         v-for="movie in displayedMovies"
         :key="movie.id"
-        class="relative bg-white bg-opacity-5 text-white p-4 rounded hover:border hover:border-white hover:border-opacity-20 hover:cursor-pointer"
+        class="relative bg-white bg-opacity-5 text-white p-4 rounded hover:border hover:border-white hover:border-opacity-20 hover:cursor-pointer flex flex-col"
         @click="openModal(movie)"
       >
+        <!-- Poster -->
         <img
           v-if="movie.backdrop_path"
           :src="`https://image.tmdb.org/t/p/w300${movie.poster_path}`"
           alt=""
-          class="mb-2 w-full rounded"
+          class="mb-3 w-full rounded object-cover"
         />
-        <div class="flex justify-between">
+
+        <!-- Views & Rating Row -->
+        <div class="flex justify-between items-center mb-2">
+          <!-- Views -->
           <div
-            class="views flex items-center gap-1 bg-black bg-opacity-30 px-3 py-1 rounded-full border border-white border-opacity-20"
+            class="views flex items-center gap-1 bg-black bg-opacity-30 px-2 py-1 rounded-full border border-white border-opacity-20 text-xs"
           >
-            <img src="../assets/img/ic-eye.svg" class="w-4" alt="" />
-            <p class="text-sm">{{ formatNumber(movie.vote_count) }}</p>
+            <img src="../assets/img/ic-eye.svg" class="w-4 h-4" alt="views" />
+            <span>{{ formatNumber(movie.vote_count) }}</span>
           </div>
+
+          <!-- Rating -->
           <div
-            class="rating bg-black bg-opacity-30 px-3 py-1 rounded-full border border-white border-opacity-20"
+            class="rating flex items-center gap-1 bg-black bg-opacity-30 px-2 py-1 rounded-full border border-white border-opacity-20 text-xs"
           >
             <span class="text-yellow-400">{{ getStars(movie.vote_average) }}</span>
             <span class="text-gray-400">
@@ -86,19 +96,21 @@ const triggerToast = (message) => {
       </div>
     </transition-group>
 
-    <div class="mt-6 flex justify-end">
+    <!-- Toggle Button -->
+    <div class="mt-6 flex justify-center">
       <button @click="showAll = !showAll" class="text-gray-400 hover:text-white underline">
         {{ showAll ? 'Tampilkan Lebih Sedikit' : 'Lihat Semua' }}
       </button>
     </div>
-  </div>
 
-  <DetailTopRate :movie="selectedMovie" @close="closeModal" @toast="triggerToast" />
-  <div
-    v-if="showToast"
-    class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow z-50 transition-all"
-  >
-    {{ toastMessage }}
+    <!-- Detail Modal & Toast -->
+    <DetailTopRate :movie="selectedMovie" @close="closeModal" @toast="triggerToast" />
+    <div
+      v-if="showToast"
+      class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow z-50 transition-opacity"
+    >
+      {{ toastMessage }}
+    </div>
   </div>
 </template>
 
@@ -111,5 +123,13 @@ const triggerToast = (message) => {
 .fade-expand-leave-to {
   opacity: 0;
   transform: scale(0.95);
+}
+
+/* Jika ingin clamp judul 2 baris */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

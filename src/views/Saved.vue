@@ -55,8 +55,8 @@ watch(
 </script>
 
 <template>
-  <div class="p-8 text-white">
-    <h1 v-if="store.user" class="text-3xl mb-4">Saved Movies</h1>
+  <div class="px-4 sm:px-6 lg:px-1 py-8 text-white mx-1 lg:mx-48">
+    <h1 v-if="store.user" class="text-2xl sm:text-3xl font-bold mb-6">Saved Movies</h1>
 
     <!-- Loading Spinner -->
     <div v-if="loading" class="text-center py-10">
@@ -66,33 +66,37 @@ watch(
 
     <!-- Jika belum login -->
     <div v-else-if="!store.user" class="text-center py-10">
-      <p class="text-xl">⚠️ Silakan login untuk melihat movie favorit Anda.</p>
+      <p class="text-lg sm:text-xl">⚠️ Silakan login untuk melihat movie favorit Anda.</p>
     </div>
 
     <!-- Jika sudah login dan ada film -->
     <div v-else>
-      <div v-if="savedMovies.length > 0" class="grid grid-cols-3 gap-4">
+      <div
+        v-if="savedMovies.length > 0"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         <div
           v-for="movie in savedMovies"
           :key="movie.id"
-          class="relative bg-gray-800 text-white p-4 rounded"
+          class="relative bg-gray-800 bg-opacity-50 text-white p-4 rounded shadow hover:shadow-lg transition duration-300"
         >
           <img
             :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
             alt=""
-            class="mb-2 w-full rounded"
+            class="mb-3 w-full rounded"
           />
           <button
             @click="unsaveMovie(movie.id)"
-            class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white text-md px-2 py-1 rounded z-10"
+            class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white text-sm px-2 py-1 rounded z-10"
             title="Unsave"
           >
             Unsave
           </button>
-          <h2 class="text-xl font-bold">{{ movie.title }}</h2>
-          <p class="text-sm">{{ movie.overview }}</p>
+          <h2 class="text-lg font-semibold mb-2">{{ movie.title }}</h2>
+          <p class="text-sm text-gray-300">{{ movie.overview }}</p>
         </div>
       </div>
+
       <div v-else class="text-center py-10 text-gray-400">
         <p>📭 Belum ada movie yang disimpan.</p>
       </div>

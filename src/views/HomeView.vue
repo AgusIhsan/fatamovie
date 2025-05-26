@@ -72,7 +72,8 @@ const saveMovie = async (movie) => {
 
 <template>
   <main>
-    <div class="hero relative h-[650px] w-full">
+    <!-- Hero Section -->
+    <div class="hero relative h-[500px] sm:h-[600px] md:h-[650px] w-full">
       <img
         v-if="movies[currentIndex]"
         :src="`https://image.tmdb.org/t/p/w1280${movies[currentIndex].backdrop_path}`"
@@ -80,51 +81,64 @@ const saveMovie = async (movie) => {
         alt=""
       />
       <div class="absolute inset-0 bg-gradient-to-b from-[#141414]/0 to-[#141414]/100 z-10"></div>
-      <div class="relative z-20 p-4 text-white h-full">
-        <div class="content-hero flex flex-col items-center justify-end gap-4 h-full">
-          <h1 class="text-4xl font-bold">
+
+      <div class="relative z-20 px-4 sm:px-6 md:px-12 text-white h-full">
+        <div
+          class="content-hero flex flex-col items-center justify-end gap-4 h-full pb-10 sm:pb-12"
+        >
+          <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
             {{ movies[currentIndex]?.title || 'Loading...' }}
           </h1>
-          <p class="text-center w-[800px] font-extralight">
+
+          <p
+            class="text-center w-full max-w-2xl px-4 sm:px-6 font-extralight text-sm sm:text-base break-words"
+          >
             {{ movies[currentIndex]?.overview }}
           </p>
-          <div class="flex gap-4 actions">
+
+          <!-- Tombol Aksi -->
+          <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
             <button
-              class="flex gap-1 text-md bg-white bg-opacity-10 backdrop-blur-sm transform transition duration-300 hover:scale-105 hover:bg-opacity-25 rounded-md px-8 py-3"
+              class="flex gap-1 items-center text-md bg-white bg-opacity-10 backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
-              <img src="../assets/img/ic-play.svg" alt="" />
+              <img src="../assets/img/ic-play.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
               Play
             </button>
+
             <button
               @click="() => saveMovie(movies[currentIndex])"
-              class="flex gap-1 text-md bg-[--black] transform transition duration-300 hover:scale-105 hover:bg-black rounded-md px-4 py-3"
+              class="flex gap-1 items-center text-md bg-[--black] transition hover:scale-105 hover:bg-black rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
-              <img src="../assets/img/ic-fav.svg" alt="" />
-              save
+              <img src="../assets/img/ic-fav.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
+              Save
             </button>
           </div>
-          <div class="slider w-full flex justify-between">
+
+          <!-- Slider Navigasi -->
+          <div class="slider w-full flex justify-between mt-6 sm:mt-8 px-4 sm:px-12">
             <button
               @click="prevMovie"
-              class="bg-white bg-opacity-10 backdrop-blur-sm transform transition duration-300 hover:scale-105 hover:bg-opacity-25 rounded-md px-5 py-2"
+              class="bg-white bg-opacity-10 backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-4 py-2"
             >
-              <img src="../assets/img/ic-left.svg" alt="" />
+              <img src="../assets/img/ic-left.svg" alt="" class="w-4 h-4" />
             </button>
             <button
               @click="nextMovie"
-              class="bg-white bg-opacity-10 backdrop-blur-sm transform transition duration-300 hover:scale-105 hover:bg-opacity-25 rounded-md px-5 py-2"
+              class="bg-white bg-opacity-10 backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-4 py-2"
             >
-              <img src="../assets/img/ic-right.svg" alt="" />
+              <img src="../assets/img/ic-right.svg" alt="" class="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- List Movie Section -->
     <div
-      class="relative flex flex-col gap-16 container-list border border-white border-opacity-10 rounded-md py-16 px-8 mt-20"
+      class="relative flex flex-col gap-16 border border-white border-opacity-10 rounded-md py-16 px-4 sm:px-8 mt-16 sm:mt-20"
     >
       <h1
-        class="absolute -top-4 left-10 text-xl bg-white bg-opacity-10 backdrop-blur-sm py-1 px-4 rounded-sm"
+        class="absolute -top-4 left-6 sm:left-10 text-lg sm:text-xl bg-white bg-opacity-10 backdrop-blur-sm py-1 px-4 rounded-sm"
       >
         Movies
       </h1>
