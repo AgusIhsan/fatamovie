@@ -19,6 +19,16 @@ const router = createRouter({
       name: 'saved',
       component: () => import('../views/Saved.vue'),
     },
+    {
+      path: '/movie/:id',
+      name: 'DetailMovie',
+      component: () => import('@/views/DetailMovie.vue'),
+    },
+    {
+      path: '/search',
+      name: 'SearchPage',
+      component: () => import('@/views/SearchPage.vue'),
+    },
   ],
 })
 

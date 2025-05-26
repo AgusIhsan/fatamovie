@@ -1,11 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import { ref } from 'vue'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase'
 import { store } from '../store'
+import debounce from 'lodash.debounce'
+import { useSearchMovies } from '../composables/useSearchMovies'
 
 const isAuthReady = ref(false)
+const searchQuery = ref('')
+const { query, results, loading } = useSearchMovies()
+const router = useRouter()
 
 // Fungsi login
 const loginWithGoogle = async () => {
@@ -36,6 +41,30 @@ onAuthStateChanged(auth, (user) => {
   store.user = user
   isAuthReady.value = true
 })
+watch(searchQuery, (newValue) => {
+  if (newValue.trim() === '') return
+
+  // Misalnya redirect ke halaman hasil pencarian
+  // atau tampilkan hasil di dropdown
+
+  console.log('Pencarian:', newValue)
+  // Contoh redirect:
+  // router.push({ path: '/search', query: { q: newValue } })
+})
+
+const handleSearch = debounce((value) => {
+  if (value.trim() === '') return
+  console.log('Debounced search:', value)
+  // router.push({ path: '/search', query: { q: value } })
+}, 500)
+
+watch(searchQuery, (newValue) => {
+  handleSearch(newValue)
+})
+const goToDetail = (movieId) => {
+  query.value = ''
+  router.push(`/movie/${movieId}`)
+}
 </script>
 
 <template>
@@ -84,28 +113,67 @@ onAuthStateChanged(auth, (user) => {
     <!-- Search + Auth -->
     <div class="flex flex-row gap-2 items-center w-full sm:w-auto justify-end">
       <!-- Search -->
-      <form class="w-full sm:w-auto">
+      <form @submit.prevent="router.push(`/search?q=${query}`)" class="w-full sm:w-auto">
         <div class="relative">
           <input
+            v-model="query"
             type="text"
             class="w-full sm:w-64 pr-10 border text-sm rounded-md p-3 bg-transparent border-white border-opacity-10 placeholder-white placeholder-opacity-30 text-white"
             placeholder="Search"
-            required
           />
-          <button
-            type="button"
-            class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-white"
+
+          <svg
+            class="w-4 h-4 absolute inset-y-[14px] right-4 flex text-gray-600 hover:text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
           >
-            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+
+          <div
+            v-if="query && results.length"
+            class="absolute z-50 bg-black bg-opacity-90 backdrop-blur-md border border-white border-opacity-10 mt-1 w-full rounded text-sm"
+          >
+            <div
+              v-for="result in results"
+              :key="result.id"
+              class="p-2 hover:bg-white hover:bg-opacity-10 cursor-pointer flex items-center gap-2"
+              @click="goToDetail(result.id)"
+            >
+              <img
+                v-if="result.poster_path"
+                :src="`https://image.tmdb.org/t/p/w92${result.poster_path}`"
+                class="w-8 h-auto rounded"
+                alt=""
               />
+              <span>{{ result.title }}</span>
+            </div>
+          </div>
+          <div v-if="loading" class="absolute top-3 right-10">
+            <svg
+              class="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
-          </button>
+          </div>
         </div>
       </form>
 

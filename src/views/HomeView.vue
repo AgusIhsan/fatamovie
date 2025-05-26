@@ -1,18 +1,22 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { getDoc, getFirestore } from 'firebase/firestore'
 import { doc, setDoc } from 'firebase/firestore'
 import { store } from '../store'
-import Popular from '@/components/Popular.vue'
+import Terbaru from '@/components/Terbaru.vue'
 import Trending from '@/components/Trending.vue'
 import TopRated from '@/components/TopRate.vue'
 import { useToast } from 'vue-toastification'
+import ModalTrailer from '@/components/ModalTrailer.vue'
+import { useTrailer } from '../composables/useTrailer'
 
+const { showTrailer, videoKey, openTrailer, closeTrailer } = useTrailer()
 const db = getFirestore()
 const toast = useToast()
 const movies = ref([])
 const currentIndex = ref(0)
 let intervalId
+const currentMovie = computed(() => movies.value[currentIndex.value])
 
 onMounted(async () => {
   const res = await fetch('https://api.themoviedb.org/3/movie/popular', {
@@ -34,7 +38,7 @@ onUnmounted(() => {
 function startAutoSlide() {
   intervalId = setInterval(() => {
     nextMovie()
-  }, 3000)
+  }, 5000)
 }
 
 const nextMovie = () => {
@@ -99,6 +103,8 @@ const saveMovie = async (movie) => {
           <!-- Tombol Aksi -->
           <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center">
             <button
+              v-if="currentMovie"
+              @click="openTrailer(currentMovie.id)"
               class="flex gap-1 items-center text-md bg-white bg-opacity-10 backdrop-blur-sm transition hover:scale-105 hover:bg-opacity-25 rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
               <img src="../assets/img/ic-play.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
@@ -106,7 +112,8 @@ const saveMovie = async (movie) => {
             </button>
 
             <button
-              @click="() => saveMovie(movies[currentIndex])"
+              @click="movies[currentIndex] && openTrailer(movies[currentIndex].id)"
+              :disabled="!movies[currentIndex]"
               class="flex gap-1 items-center text-md bg-[--black] transition hover:scale-105 hover:bg-black rounded-md px-6 py-2 sm:px-8 sm:py-3"
             >
               <img src="../assets/img/ic-fav.svg" alt="" class="w-4 h-4 sm:w-5 sm:h-5" />
@@ -142,8 +149,11 @@ const saveMovie = async (movie) => {
       >
         Movies
       </h1>
+      <Terbaru />
       <TopRated />
-      <Trending />
+
+      <!-- Trailer Modal -->
     </div>
+    <ModalTrailer v-if="showTrailer" :videoKey="videoKey" @close="showTrailer = false" />
   </main>
 </template>

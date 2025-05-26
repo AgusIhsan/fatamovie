@@ -13,7 +13,7 @@ const goToDetail = (id) => {
 }
 
 onMounted(async () => {
-  const res = await fetch('https://api.themoviedb.org/3/movie/top_rated', {
+  const res = await fetch('https://api.themoviedb.org/3/movie/now_playing', {
     headers: {
       accept: 'application/json',
       Authorization:
@@ -56,7 +56,7 @@ const triggerToast = (message) => {
 
 <template>
   <div class="px-4 sm:px-8 lg:px-0">
-    <h1 class="text-white text-2xl font-bold mb-4">Top Rated</h1>
+    <h1 class="text-white text-2xl font-bold mb-4">Now Playing</h1>
 
     <transition-group
       name="fade-expand"
