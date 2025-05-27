@@ -88,7 +88,7 @@ const goToDetail = (movieId) => {
           Home
         </div>
       </RouterLink>
-      <RouterLink to="/about" v-slot="{ isActive }">
+      <RouterLink to="/movie&show" v-slot="{ isActive }">
         <div
           :class="[
             'rounded-md bg-opacity-10 px-4 py-2 transition-all',
