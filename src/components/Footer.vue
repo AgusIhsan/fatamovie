@@ -51,6 +51,9 @@ import { store } from '../store'
         >
           API Documentation
         </a>
+        <a>
+          ©agusihsan | 2025
+        </a>
       </div>
     </div>
   </footer>
