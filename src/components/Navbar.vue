@@ -49,7 +49,7 @@ watch(searchQuery, (newValue) => {
 
   console.log('Pencarian:', newValue)
   // Contoh redirect:
-  // router.push({ path: '/search', query: { q: newValue } })
+  // router.push({ path: '/search', query: { q: newValue } 
 })
 
 const handleSearch = debounce((value) => {
@@ -182,7 +182,7 @@ const goToDetail = (movieId) => {
         <button
           v-if="!store.user"
           @click="loginWithGoogle"
-          class="text-[--primary] font-semibold transition hover:scale-105 px-2 text-sm"
+          class="bg-[--primary] text-[--white] font-semibold transition hover:scale-105 px-4 py-3 text-sm rounded-md"
         >
           Login
         </button>
