@@ -51,7 +51,11 @@ import { store } from '../store'
         >
           API Documentation
         </a>
-        <a>
+        <a
+          href="https://agusihsan.vercel.app/"
+          class="hover:text-[--primary] transition"
+          target="_blank"
+        >
           ©agusihsan | 2025
         </a>
       </div>
