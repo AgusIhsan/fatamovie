@@ -13,7 +13,7 @@ const goToDetail = (id) => {
 }
 
 onMounted(async () => {
-  const res = await fetch('https://api.themoviedb.org/3/movie/popular', {
+  const res = await fetch('https://api.themoviedb.org/3/movie/upcoming', {
     headers: {
       accept: 'application/json',
       Authorization:
@@ -50,7 +50,7 @@ const triggerToast = (message) => {
 
 <template>
   <div class="px-4 sm:px-8 lg:px-0">
-    <h1 class="text-white text-2xl font-bold mb-4">Popular</h1>
+    <h1 class="text-white text-2xl font-bold mb-4">Upcoming</h1>
 
     <transition-group
       name="fade-expand"

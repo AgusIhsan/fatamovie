@@ -1,7 +1,8 @@
 <script setup>
 import Popular from '@/components/Popular.vue'
-import Trending from '@/components/Trending.vue'
+import Terbaru from '@/components/Terbaru.vue'
 import TopRated from '@/components/TopRate.vue'
+import Upcoming from '@/components/Upcoming.vue'
 </script>
 
 <template>
@@ -13,9 +14,9 @@ import TopRated from '@/components/TopRate.vue'
     >
       Movies
     </h1>
-    <!-- <Trending /> -->
     <TopRated />
-    <!-- Section Movie Lists -->
+    <Upcoming />
+    <Terbaru />
     <Popular />
   </div>
 </template>
