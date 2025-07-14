@@ -189,7 +189,7 @@ const goToDetail = (movieId) => {
         <button
           v-else
           @click="logout"
-          class="text-red-600 font-semibold transition hover:scale-105 px-2 text-sm"
+          class="bg-red-500 text-[--white] font-semibold transition hover:scale-105 px-4 py-3 text-sm rounded-md"
         >
           Logout
         </button>

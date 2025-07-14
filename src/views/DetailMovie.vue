@@ -51,6 +51,7 @@ const saveMovie = async () => {
     await setDoc(userMovieRef, movie.value)
     toast.success('Berhasil ditambahkan ke Favorite!')
   } catch (err) {
+      console.error("SAVE ERROR:", err)
     toast.error('Gagal menambahkan film.')
   }
 }
