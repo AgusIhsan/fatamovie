@@ -55,7 +55,7 @@ watch(
 </script>
 
 <template>
-  <div class="px-4 sm:px-6 lg:px-1 py-8 text-white mx-1 lg:mx-48">
+  <div class="px-4 sm:px-6 lg:px-1 py-8 text-white mx-1">
     <h1 v-if="store.user" class="text-2xl sm:text-3xl font-bold mb-6">Saved Movies</h1>
 
     <!-- Loading Spinner -->
