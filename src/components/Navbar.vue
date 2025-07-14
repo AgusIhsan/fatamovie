@@ -49,7 +49,7 @@ watch(searchQuery, (newValue) => {
 
   console.log('Pencarian:', newValue)
   // Contoh redirect:
-  // router.push({ path: '/search', query: { q: newValue } 
+  // router.push({ path: '/search', query: { q: newValue }
 })
 
 const handleSearch = debounce((value) => {
@@ -72,7 +72,9 @@ const goToDetail = (movieId) => {
     class="px-4 sm:px-8 lg:px-48 py-4 flex flex-wrap gap-y-4 justify-between items-center text-white"
   >
     <!-- Logo -->
-    <img src="../assets/img/logo-fatamovie.svg" alt="FataMovie Logo" class="w-28 sm:w-36" />
+    <RouterLink to="/">
+      <img src="../assets/img/logo-fatamovie.svg" alt="FataMovie Logo" class="w-28 sm:w-36" />
+    </RouterLink>
 
     <!-- Navigation -->
     <nav
