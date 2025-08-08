@@ -54,7 +54,7 @@ const triggerToast = (message) => {
     <transition-group
       name="fade-expand"
       tag="div"
-      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
       <div
         v-for="movie in displayedMovies"
@@ -71,7 +71,7 @@ const triggerToast = (message) => {
         />
 
         <!-- Views & Rating Row -->
-        <div class="flex justify-between items-center mb-2">
+        <div class="flex flex-col justify-between gap-2 items-start lg:mb-2 lg:flex-row lg:items-center">
           <!-- Views -->
           <div
             class="views flex items-center gap-1 bg-black bg-opacity-30 px-2 py-1 rounded-full border border-white border-opacity-20 text-xs"
